@@ -1,5 +1,7 @@
 /* eslint-disable class-methods-use-this */
-import  SpellComponent  from '../../db/models/index.js';
+import db from '../../db/models/index.js';
+
+const { SpellComponent } = db;
 
 class SpellComponentService {
   async getAllSpellComponents() {

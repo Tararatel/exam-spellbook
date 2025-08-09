@@ -1,0 +1,23 @@
+@use './helpers/mixins' as *;
+@use './helpers/vars' as *;
+@use './helpers/accessibility' as *;
+@use './utils/utils.scss' as *;
+@use './helpers/container' as *;
+
+body {
+  font-family: 'Golos Text', sans-serif;
+  background-color: $background;
+  color: $text-primary;
+
+  &.dark {
+    background-color: $dark-background;
+    color: $dark-text-primary;
+  }
+}
+
+button {
+  background: none;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}

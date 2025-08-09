@@ -21,7 +21,7 @@ app.use(express.json());
 app.use('/api/words', wordRoutes);
 app.use('/api/spells', spellRoutes);
 app.use('/api/spell-components', spellComponentRoutes);
-app.use('/api/spell-effects', spellEffectRoutes);
+app.use('/api/effects', spellEffectRoutes);
 app.use('/api/spell-effect-mappings', spellEffectMappingRoutes);
 app.use('/api/rules', ruleRoutes);
 

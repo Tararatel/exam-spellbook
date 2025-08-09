@@ -8,7 +8,7 @@ export default {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      effect_name: {
+      name: {
         type: Sequelize.STRING,
         allowNull: false,
         unique: true,

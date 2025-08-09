@@ -1,5 +1,7 @@
 /* eslint-disable class-methods-use-this */
-import Word from '../../db/models/index.js';
+import db from '../../db/models/index.js';
+
+const { Word } = db;
 
 class WordService {
   async getAllWords() {

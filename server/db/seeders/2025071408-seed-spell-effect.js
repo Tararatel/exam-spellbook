@@ -4,21 +4,21 @@ export default {
     const now = new Date();
     const spellEffects = [
       {
-        effect_name: 'Освещение',
+        name: 'Освещение',
         description: 'Создает источник света',
         category: 'physical',
         createdAt: now,
         updatedAt: now,
       },
       {
-        effect_name: 'Возгорание',
+        name: 'Возгорание',
         description: 'Вызывает огонь или искры',
         category: 'physical',
         createdAt: now,
         updatedAt: now,
       },
       {
-        effect_name: 'Защита',
+        name: 'Защита',
         description: 'Создает магический барьер',
         category: 'defense',
         createdAt: now,
