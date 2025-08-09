@@ -1,10 +1,8 @@
 /* eslint-disable class-methods-use-this */
-import Spell from '../../db/models/index.js';
-import Word from '../../db/models/index.js';
-import SpellEffect from '../../db/models/index.js';
-import SpellComponent from '../../db/models/index.js';
-import Rule from '../../db/models/index.js';
+import db from '../../db/models/index.js';
 import { Op } from 'sequelize';
+
+const { Spell, Word, SpellEffect, SpellComponent, Rule } = db;
 
 class SpellService {
   async getAllSpells() {

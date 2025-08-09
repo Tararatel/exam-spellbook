@@ -1,0 +1,121 @@
+@use 'sass:color';
+@use 'sass:math';
+@use '@/shared/styles/helpers/_vars.scss' as *;
+
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+@mixin flex-start {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+@mixin flex-end {
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+}
+
+@mixin flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+@mixin flex-row {
+  display: flex;
+  flex-direction: row;
+}
+
+@mixin underline-on-hover($color: $hover-accent, $offset: 30px, $height: $underline-height) {
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: $offset;
+    width: 0;
+    height: $height;
+    background-color: $color;
+    transition: width 0.3s ease-in-out;
+  }
+
+  &:hover::after {
+    width: calc(100% - #{$offset});
+  }
+}
+
+@mixin icon-before($url, $size: $icon-size, $margin: $icon-margin) {
+  &::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    width: $size;
+    height: $size * 1.5;
+    background: url($url) no-repeat center;
+    background-size: contain;
+    margin-right: $margin;
+  }
+}
+
+@mixin box-shadow-hover($shadow-start: $shadow-sm, $shadow-end: $shadow-md) {
+  box-shadow: $shadow-start;
+  transition: box-shadow $transition-base, transform $transition-fast;
+
+  &:hover {
+    box-shadow: $shadow-end;
+    transform: translateY(-2px);
+  }
+}
+
+@mixin button($bg: $blue-primary, $color: $background) {
+  padding: $gap-base $gap-large;
+  font-weight: 600;
+  font-size: $font-size-small;
+  line-height: 167%;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  text-align: center;
+  color: $color;
+  background: $bg;
+  border-radius: $button-radius;
+  transition: background $transition-base;
+
+  &:hover {
+    background: color.adjust($bg, $lightness: -10%);
+  }
+}
+
+@mixin button-circle($size: $button-size, $bg: $blue-primary, $color: $background) {
+  width: $size;
+  height: $size;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: $bg;
+  color: $color;
+  font-size: $font-size-small;
+  transition: background $transition-base;
+
+  &:hover {
+    background: color.adjust($bg, $lightness: -10%);
+  }
+}
+
+@mixin image-hover {
+  transition: transform $transition-base;
+  &:hover {
+    transform: scale(1.05);
+  }
+}

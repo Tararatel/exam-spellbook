@@ -1,5 +1,7 @@
 /* eslint-disable class-methods-use-this */
-import Rule from '../../db/models/index.js';
+import db from '../../db/models/index.js';
+
+const { Rule } = db;
 
 class RuleService {
   async getAllRules() {
