@@ -1,0 +1,42 @@
+.header {
+  background: linear-gradient(180deg, #0f0c29 0%, #302b63 100%);
+  padding: 1.5rem;
+  border-bottom: 2px solid #d4af37;
+  box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
+  text-align: center;
+  position: relative;
+
+  h1 {
+    color: #d4af37;
+    font-family: 'Cinzel', serif;
+    font-size: 2.5rem;
+    text-shadow: 0 0 15px rgba(212, 175, 55, 0.7);
+    margin: 0;
+    animation: glowText 2s infinite alternate;
+  }
+
+  nav {
+    margin-top: 1rem;
+
+    a {
+      color: #e0e0e0;
+      text-decoration: none;
+      margin: 0 1.5rem;
+      font-family: 'Uncial Antiqua', cursive;
+      font-size: 1.4rem;
+      transition: all 0.3s;
+      text-shadow: 0 0 5px rgba(212, 175, 55, 0.3);
+
+      &:hover {
+        color: #d4af37;
+        text-shadow: 0 0 15px rgba(212, 175, 55, 0.7);
+        transform: scale(1.1);
+      }
+    }
+  }
+
+  @keyframes glowText {
+    from { text-shadow: 0 0 10px rgba(212, 175, 55, 0.5); }
+    to { text-shadow: 0 0 20px rgba(212, 175, 55, 0.8); }
+  }
+}

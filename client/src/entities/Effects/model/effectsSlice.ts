@@ -18,7 +18,6 @@ const effectsSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      // Fetch effects
       .addCase(fetchEffects.pending, (state) => {
         state.loading = true;
         state.error = null;
@@ -29,9 +28,8 @@ const effectsSlice = createSlice({
       })
       .addCase(fetchEffects.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.error.message ?? 'Failed to fetch effects';
+        state.error = action.error.message ?? 'Ошибка загрузки эффектов';
       })
-      // Create effect
       .addCase(createEffect.pending, (state) => {
         state.loading = true;
         state.error = null;
@@ -42,7 +40,7 @@ const effectsSlice = createSlice({
       })
       .addCase(createEffect.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.error.message ?? 'Failed to create effect';
+        state.error = action.error.message ?? 'Ошибка создания эффекта';
       });
   },
 });

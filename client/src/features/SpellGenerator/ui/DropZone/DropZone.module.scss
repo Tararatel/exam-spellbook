@@ -1,0 +1,22 @@
+.dropZone {
+  padding: 1.5rem;
+  border: 2px dashed #d4af37;
+  border-radius: 8px;
+  background: rgba(15, 12, 41, 0.6);
+  text-align: center;
+  color: #e0e0e0;
+  font-family: 'Uncial Antiqua', cursive;
+  transition: all 0.3s;
+  box-shadow: 0 0 10px rgba(212, 175, 55, 0.2);
+
+  &:hover {
+    border-color: #e6c84f;
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
+    animation: zonePulse 1s infinite alternate;
+  }
+
+  @keyframes zonePulse {
+    from { box-shadow: 0 0 10px rgba(212, 175, 55, 0.2); }
+    to { box-shadow: 0 0 20px rgba(212, 175, 55, 0.5); }
+  }
+}
