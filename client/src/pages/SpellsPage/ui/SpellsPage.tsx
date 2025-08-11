@@ -1,22 +1,28 @@
-import React, { useEffect, useState } from 'react';
-import { fetchSpells, updateSpell, deleteSpell } from '@/entities/Spells/model/spellsThunks';
-import type { Spell, UpdateSpell } from '@/entities/Spells/types/spellsTypes';
+import React, { useState } from 'react';
+import type { Spell } from '@/entities/Spells/types/spellsTypes';
 import styles from './SpellsPage.module.scss';
-import { useAppDispatch, useAppSelector } from '@/shared/lib/hooks';
 import Loader from '@/features/Loader/ui/Loader';
 
-const SpellsPage: React.FC = () => {
-  const dispatch = useAppDispatch();
-  const { items: spells, loading } = useAppSelector((state) => state.spells);
+// Моковые данные для заклинаний
+const mockSpells: Spell[] = [
+  {
+    id: 1,
+    name: 'Огненный шар',
+    pronunciation: 'FireBolt',
+    description: 'Заклинание, создающее огненный шар.',
+    Words: [
+      { id: 1, word: 'Fire', meaning: 'Огонь', type: 'root' },
+      { id: 3, word: 'Bolt', meaning: 'Молния', type: 'suffix' },
+    ],
+  },
+];
 
+const SpellsPage = (): React.JSX.Element => {
+  const [spells, setSpells] = useState<Spell[]>(mockSpells);
+  const [loading] = useState(false); // Мок для loading
   const [editingSpell, setEditingSpell] = useState<Spell | null>(null);
   const [editName, setEditName] = useState('');
   const [editDescription, setEditDescription] = useState('');
-  
-
-  useEffect(() => {
-    dispatch(fetchSpells());
-  }, [dispatch]);
 
   const handleEdit = (spell: Spell) => {
     setEditingSpell(spell);
@@ -27,25 +33,20 @@ const SpellsPage: React.FC = () => {
   const handleSave = async () => {
     if (!editingSpell) return;
 
-    const spellData: UpdateSpell = {
-      name: editName,
-      description: editDescription,
-    };
-
-    try {
-      await dispatch(updateSpell({ id: editingSpell.id, spellData })).unwrap();
-
-      setEditingSpell(null);
-      dispatch(fetchSpells());
-    } catch (err: any) {
-      alert('Ошибка при сохранении: ' + (err.message ?? JSON.stringify(err)));
-    }
+    // Мок обновления - обновляем локальный state
+    const updatedSpells = spells.map((s) =>
+      s.id === editingSpell.id ? { ...s, name: editName, description: editDescription } : s,
+    );
+    console.log('Обновлено заклинание:', { name: editName, description: editDescription });
+    setSpells(updatedSpells);
+    setEditingSpell(null);
   };
 
   const handleDelete = async (id: number) => {
     if (confirm('Удалить заклинание?')) {
-      await dispatch(deleteSpell(id));
-      dispatch(fetchSpells());
+      const updatedSpells = spells.filter((s) => s.id !== id);
+      setSpells(updatedSpells);
+      console.log('Удалено заклинание с ID:', id);
     }
   };
 
@@ -77,7 +78,7 @@ const SpellsPage: React.FC = () => {
                 <strong>{spell.name}</strong>
                 <p>Инкантация: {spell.pronunciation}</p>
                 <div className={styles.tags}>
-                  {spell.Words?.map((w: any) => (
+                  {spell.Words?.map((w) => (
                     <span key={w.id} className={styles.tag}>
                       {w.word}
                     </span>

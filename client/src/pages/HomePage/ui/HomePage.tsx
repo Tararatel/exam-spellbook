@@ -1,23 +1,24 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
-import { fetchWords } from '@/entities/Words/model/wordsThunks';
-import { createSpell } from '@/entities/Spells/model/spellsThunks';
-import { createSpellComponent } from '@/entities/SpellComponents/model/spellComponentsThunks';
-import type { Word } from '@/entities/Words/types/wordsTypes';
-import { SpellSchema, type CreateSpell } from '@/entities/Spells/types/spellsTypes';
+import type { Word } from '@/entities/Words/types/wordsTypes'; // Предполагаем, что типы остались
+import { type CreateSpell } from '@/entities/Spells/types/spellsTypes';
 import WordItem from '@/features/SpellGenerator/ui/WordItem/WordItem';
 import DropZone from '@/features/SpellGenerator/ui/DropZone/DropZone';
 import styles from './HomePage.module.scss';
-import { useAppDispatch, useAppSelector } from '@/shared/lib/hooks';
 import Loader from '@/features/Loader/ui/Loader';
 import Vjuh from '../assets/img/vjuh.png';
 
-const HomePage: React.FC = () => {
-  const dispatch = useAppDispatch();
-  const { words } = useAppSelector((state) => state.words);
-  const { loading } = useAppSelector((state) => state.spells);
+// Моковые данные для слов
+const mockWords: Word[] = [
+  { id: 1, word: 'Fire', meaning: 'Огонь', type: 'root' },
+  { id: 2, word: 'Aqua', meaning: 'Вода', type: 'prefix' },
+  { id: 3, word: 'Bolt', meaning: 'Молния', type: 'suffix' },
+  { id: 4, word: 'Wind', meaning: 'Ветер', type: 'word' },
+];
 
+const HomePage = (): React.JSX.Element => {
+  const [words] = useState<Word[]>(mockWords);
   const [selectedComponents, setSelectedComponents] = useState<{
     prefix: Word | null;
     root: Word | null;
@@ -31,10 +32,7 @@ const HomePage: React.FC = () => {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [isLoader, setIsLoader] = useState(false);
-
-  useEffect(() => {
-    dispatch(fetchWords());
-  }, [dispatch]);
+  const [loading] = useState(false); // Мок для loading
 
   const handleDrop = (word: Word, position: 'prefix' | 'root' | 'suffix') => {
     if (word.type !== position && word.type !== 'word') {
@@ -46,7 +44,7 @@ const HomePage: React.FC = () => {
 
   const handleCreate = async () => {
     if (!selectedComponents.prefix && !selectedComponents.root && !selectedComponents.suffix) {
-      alert('Добавьте хотя бы одну часть заклтинания!');
+      alert('Добавьте хотя бы одну часть заклинания!');
       return;
     }
 
@@ -59,55 +57,22 @@ const HomePage: React.FC = () => {
     const generatedName = name || parts.map((w) => w!.meaning).join(' ');
 
     const spellData: CreateSpell = {
-      Words: parts,
+      Words: parts as Word[],
       name: generatedName,
       description,
       pronunciation: generatedPronunciation,
     };
 
-    try {
-      const spellResponse = await dispatch(createSpell(spellData));
-      const spell_id = SpellSchema.parse(spellResponse.payload).id;
+    // Мок создания - просто консоль и лоадер
+    console.log('Создано заклинание:', spellData);
+    setIsLoader(true);
+    setTimeout(() => {
+      setIsLoader(false);
+    }, 2000);
 
-      if (selectedComponents.prefix) {
-        await dispatch(
-          createSpellComponent({
-            spell_id,
-            word_id: selectedComponents.prefix.id,
-            position: 'prefix',
-          }),
-        );
-      }
-      if (selectedComponents.root) {
-        await dispatch(
-          createSpellComponent({
-            spell_id,
-            word_id: selectedComponents.root.id,
-            position: 'root',
-          }),
-        );
-      }
-      if (selectedComponents.suffix) {
-        await dispatch(
-          createSpellComponent({
-            spell_id,
-            word_id: selectedComponents.suffix.id,
-            position: 'suffix',
-          }),
-        );
-      }
-
-      setIsLoader(true);
-      setTimeout(() => {
-        setIsLoader(false);
-      }, 2000)
-
-      setSelectedComponents({ prefix: null, root: null, suffix: null });
-      setName('');
-      setDescription('');
-    } catch (error) {
-      console.error('Ошибка изобретения заклинания!');
-    }
+    setSelectedComponents({ prefix: null, root: null, suffix: null });
+    setName('');
+    setDescription('');
   };
 
   const prefixes = words.filter((w) => w.type === 'prefix' || w.type === 'word');
