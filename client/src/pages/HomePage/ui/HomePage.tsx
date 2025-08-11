@@ -11,6 +11,7 @@ import DropZone from '@/features/SpellGenerator/ui/DropZone/DropZone';
 import styles from './HomePage.module.scss';
 import { useAppDispatch, useAppSelector } from '@/shared/lib/hooks';
 import Loader from '@/features/Loader/ui/Loader';
+import Vjuh from '../assets/img/vjuh.png';
 
 const HomePage: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -169,7 +170,7 @@ const HomePage: React.FC = () => {
               onClick={handleCreate}
               disabled={loading}
             >
-              Сварить
+              <img src={Vjuh} alt="вжух" />
             </button>
           </div>
         </div>
