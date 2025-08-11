@@ -3,6 +3,7 @@ import { fetchSpells, updateSpell, deleteSpell } from '@/entities/Spells/model/s
 import type { Spell, UpdateSpell } from '@/entities/Spells/types/spellsTypes';
 import styles from './SpellsPage.module.scss';
 import { useAppDispatch, useAppSelector } from '@/shared/lib/hooks';
+import Loader from '@/features/Loader/ui/Loader';
 
 const SpellsPage: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -11,6 +12,7 @@ const SpellsPage: React.FC = () => {
   const [editingSpell, setEditingSpell] = useState<Spell | null>(null);
   const [editName, setEditName] = useState('');
   const [editDescription, setEditDescription] = useState('');
+  
 
   useEffect(() => {
     dispatch(fetchSpells());
@@ -47,7 +49,7 @@ const SpellsPage: React.FC = () => {
     }
   };
 
-  if (loading) return <div>Загрузка...</div>;
+  if (loading) return <Loader />;
 
   return (
     <div className={styles.spellsPage}>

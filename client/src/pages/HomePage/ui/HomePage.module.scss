@@ -1,6 +1,4 @@
 .homePage {
-  max-width: 1200px;
-  margin: 0 auto;
   padding: 2rem;
   background: linear-gradient(180deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
   background-image: url('https://www.transparenttextures.com/patterns/stardust.png');
@@ -30,10 +28,20 @@
     animation: glowText 2s infinite alternate;
   }
 
+  h3 {
+    text-align: center;
+    font-size: 1.5rem;
+    color: #d4af37;
+    text-shadow: 0 0 15px rgba(212, 175, 55, 0.7), 0 0 30px rgba(212, 175, 55, 0.5);
+    animation: glowText 2s infinite alternate;
+  }
+
   .wordsContainer {
+    max-width: 1400px;
+    margin: 0 auto;
     display: flex;
     gap: 2rem;
-    margin-bottom: 2rem;
+    // margin-bottom: 2rem;
 
     .category {
       flex: 1;

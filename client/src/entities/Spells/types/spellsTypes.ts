@@ -5,11 +5,11 @@ export const SpellSchema = z.object({
   id: z.number(),
   name: z.string(),
   description: z.string().nullable(),
-  type: z.enum(['attack', 'defense', 'utility', 'healing', 'charm']),
-  difficulty: z.enum(['beginner', 'intermediate', 'advanced']),
-  wand_movement: z.string().nullable(),
+  // type: z.enum(['attack', 'defense', 'utility', 'healing', 'charm']),
+  // difficulty: z.enum(['beginner', 'intermediate', 'advanced']),
+  // wand_movement: z.string().nullable(),
   pronunciation: z.string().nullable(),
-  is_canon: z.boolean(),
+  // is_canon: z.boolean(),
 });
 
 export type Spell = z.infer<typeof SpellSchema>;

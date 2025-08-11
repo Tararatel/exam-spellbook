@@ -5,11 +5,12 @@ import { fetchWords } from '@/entities/Words/model/wordsThunks';
 import { createSpell } from '@/entities/Spells/model/spellsThunks';
 import { createSpellComponent } from '@/entities/SpellComponents/model/spellComponentsThunks';
 import type { Word } from '@/entities/Words/types/wordsTypes';
-import type { CreateSpell } from '@/entities/Spells/types/spellsTypes';
+import { SpellSchema, type CreateSpell } from '@/entities/Spells/types/spellsTypes';
 import WordItem from '@/features/SpellGenerator/ui/WordItem/WordItem';
 import DropZone from '@/features/SpellGenerator/ui/DropZone/DropZone';
 import styles from './HomePage.module.scss';
 import { useAppDispatch, useAppSelector } from '@/shared/lib/hooks';
+import Loader from '@/features/Loader/ui/Loader';
 
 const HomePage: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -28,6 +29,7 @@ const HomePage: React.FC = () => {
 
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
+  const [isLoader, setIsLoader] = useState(false);
 
   useEffect(() => {
     dispatch(fetchWords());
@@ -43,7 +45,7 @@ const HomePage: React.FC = () => {
 
   const handleCreate = async () => {
     if (!selectedComponents.prefix && !selectedComponents.root && !selectedComponents.suffix) {
-      alert('Добавьте хотя бы одну часть в котёл!');
+      alert('Добавьте хотя бы одну часть заклтинания!');
       return;
     }
 
@@ -59,21 +61,17 @@ const HomePage: React.FC = () => {
       Words: parts,
       name: generatedName,
       description,
-      type: 'utility',   // !!!!!!!
-      difficulty: 'beginner',  // !!!!!!!!!
-      wand_movement: null, // !!!!!!!
       pronunciation: generatedPronunciation,
-      is_canon: false, // !!!!!!!!
     };
 
     try {
       const spellResponse = await dispatch(createSpell(spellData));
-      const newSpell = spellResponse.payload;
+      const spell_id = SpellSchema.parse(spellResponse.payload).id;
 
       if (selectedComponents.prefix) {
         await dispatch(
           createSpellComponent({
-            spell_id: newSpell.id,
+            spell_id,
             word_id: selectedComponents.prefix.id,
             position: 'prefix',
           }),
@@ -82,7 +80,7 @@ const HomePage: React.FC = () => {
       if (selectedComponents.root) {
         await dispatch(
           createSpellComponent({
-            spell_id: newSpell.id,
+            spell_id,
             word_id: selectedComponents.root.id,
             position: 'root',
           }),
@@ -91,19 +89,23 @@ const HomePage: React.FC = () => {
       if (selectedComponents.suffix) {
         await dispatch(
           createSpellComponent({
-            spell_id: newSpell.id,
+            spell_id,
             word_id: selectedComponents.suffix.id,
             position: 'suffix',
           }),
         );
       }
 
-      alert('Заклинание сварено!');
+      setIsLoader(true);
+      setTimeout(() => {
+        setIsLoader(false);
+      }, 2000)
+
       setSelectedComponents({ prefix: null, root: null, suffix: null });
       setName('');
       setDescription('');
     } catch (error) {
-      alert('Ошибка варки заклинания!');
+      console.error('Ошибка изобретения заклинания!');
     }
   };
 
@@ -111,10 +113,14 @@ const HomePage: React.FC = () => {
   const roots = words.filter((w) => w.type === 'root' || w.type === 'word');
   const suffixes = words.filter((w) => w.type === 'suffix' || w.type === 'word');
 
+  if (isLoader) {
+    return <Loader />;
+  }
+
   return (
     <DndProvider backend={HTML5Backend}>
       <div className={styles.homePage}>
-        <h2>Сварите заклинание в котле</h2>
+        <h2>Время магии</h2>
         <div className={styles.wordsContainer}>
           <div>
             <h3>Префиксы</h3>

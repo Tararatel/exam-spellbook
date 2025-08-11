@@ -24,27 +24,27 @@ export default (sequelize) => {
         type: DataTypes.TEXT,
         allowNull: true,
       },
-      type: {
-        type: DataTypes.ENUM('attack', 'defense', 'utility', 'healing', 'charm'),
-        allowNull: false,
-      },
-      difficulty: {
-        type: DataTypes.ENUM('beginner', 'intermediate', 'advanced'),
-        allowNull: false,
-      },
-      wand_movement: {
-        type: DataTypes.TEXT,
-        allowNull: true,
-      },
+      // type: {
+      //   type: DataTypes.ENUM('attack', 'defense', 'utility', 'healing', 'charm'),
+      //   allowNull: false,
+      // },
+      // difficulty: {
+      //   type: DataTypes.ENUM('beginner', 'intermediate', 'advanced'),
+      //   allowNull: false,
+      // },
+      // wand_movement: {
+      //   type: DataTypes.TEXT,
+      //   allowNull: true,
+      // },
       pronunciation: {
         type: DataTypes.STRING,
         allowNull: true,
       },
-      is_canon: {
-        type: DataTypes.BOOLEAN,
-        allowNull: false,
-        defaultValue: false,
-      },
+      // is_canon: {
+      //   type: DataTypes.BOOLEAN,
+      //   allowNull: false,
+      //   defaultValue: false,
+      // },
     },
     {
       sequelize,

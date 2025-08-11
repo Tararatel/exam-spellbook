@@ -26,9 +26,9 @@ const WordItem = ({ word }: WordItemProps): React.JSX.Element => {
         {word.word} ({word.type})
       </div>
       <div className={styles.wordDetails}>
-        {word.meaning && <span>Значение: {word.meaning}</span>}
-        <span> | Язык: {word.language}</span>
-        {word.category && <span> | Категория: {word.category}</span>}
+        <p>Значение: {word.meaning}</p>
+        <p>Язык: {word.language}</p>
+        <p>Категория: {word.category}</p>
       </div>
     </div>
   );

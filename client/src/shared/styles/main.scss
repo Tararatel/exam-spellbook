@@ -9,3 +9,15 @@ button {
   outline: none;
   cursor: pointer;
 }
+
+@font-face {
+    font-family: 'Metamorphous';
+    src: url('../fonts/Metamorphous.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+* {
+  font-family: 'Metamorphous';
+}

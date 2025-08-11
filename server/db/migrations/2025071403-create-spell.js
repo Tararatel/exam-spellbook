@@ -17,27 +17,12 @@ export default {
         type: Sequelize.TEXT,
         allowNull: true,
       },
-      type: {
-        type: Sequelize.ENUM('attack', 'defense', 'utility', 'healing', 'charm'),
-        allowNull: false,
-      },
-      difficulty: {
-        type: Sequelize.ENUM('beginner', 'intermediate', 'advanced'),
-        allowNull: false,
-      },
-      wand_movement: {
-        type: Sequelize.TEXT,
-        allowNull: true,
-      },
+
       pronunciation: {
         type: Sequelize.STRING,
         allowNull: true,
       },
-      is_canon: {
-        type: Sequelize.BOOLEAN,
-        allowNull: false,
-        defaultValue: false,
-      },
+
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,

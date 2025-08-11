@@ -17,8 +17,6 @@ const SpellsService = {
 
   create: async (data: CreateSpell): Promise<Spell> => {
     const response = await axiosInstance.post('/spells', data);
-    console.log(response.data);
-    
     const validData = SpellSchema.parse(response.data);
     return validData;
   },
