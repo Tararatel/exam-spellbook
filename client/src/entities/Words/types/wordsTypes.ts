@@ -5,8 +5,6 @@ export const WordSchema = z.object({
   word: z.string(),
   type: z.enum(['root', 'prefix', 'suffix', 'word']),
   meaning: z.string().nullable(),
-  language: z.string(),
-  category: z.string().nullable(),
 });
 
 export type Word = z.infer<typeof WordSchema>;
